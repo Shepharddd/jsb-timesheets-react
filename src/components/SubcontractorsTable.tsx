@@ -37,7 +37,7 @@ const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDele
                     style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
                   >
                     <span className={`sub-name-display ${!sub.name ? 'empty' : ''}`}>
-                      {sub.name || 'Click to add name'}
+                      {sub.name || 'Click to add'}
                     </span>
                   </div>
                 </td>
@@ -66,7 +66,7 @@ const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDele
                     style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
                   >
                     <span className={`work-desc-display ${!sub.tasks ? 'empty' : ''}`}>
-                      {sub.tasks || 'Click to add tasks'}
+                      {sub.tasks || 'Click to add'}
                     </span>
                   </div>
                 </td>
@@ -90,7 +90,7 @@ const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDele
                 }}
                 style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
               >
-                <span className="sub-name-display empty">Click to add name</span>
+                <span className="sub-name-display empty">Click to add</span>
               </div>
             </td>
             <td>

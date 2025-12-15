@@ -22,7 +22,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <div className="login-header">
-          <img src="/assets/JSBLogo.jpg" alt="JSB Logo" className="login-logo" />
+          {/* <img src="/assets/JSBLogo.jpg" alt="JSB Logo" className="login-logo" /> */}
           <h1>Daily Site Log</h1>
           <p>Sign in with your Microsoft account to continue</p>
         </div>

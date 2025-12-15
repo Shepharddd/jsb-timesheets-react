@@ -83,11 +83,14 @@ function TimesheetView({
       </div>
 
       <div className="section timesheet-section">
-        <UserInfo
-          timesheet={timesheet}
-          onUpdate={onUpdate}
-          onTimeClick={(type) => openModal('time', { type, value: timesheet[type] })}
-        />
+          <UserInfo
+            timesheet={timesheet}
+            onUpdate={onUpdate}
+            onTimeClick={(type) => {
+              const currentValue = timesheet[type] || (type === 'startTime' ? '07:00' : type === 'endTime' ? '15:30' : '00:30')
+              openModal('time', { type, value: currentValue })
+            }}
+          />
       </div>
 
       <div className="section timesheet-section">

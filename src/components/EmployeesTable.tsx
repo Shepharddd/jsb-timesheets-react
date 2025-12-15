@@ -59,16 +59,16 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
                       disabled={disabled}
                       style={{
                         width: '100%',
-                        padding: '4px 8px',
+                        padding: '2px 4px',
                         border: 'none',
                         background: 'transparent',
-                        fontSize: '14px',
+                        fontSize: '12px',
                         color: employee.name ? '#333' : '#999',
                         cursor: disabled ? 'not-allowed' : 'pointer',
                         textAlign: 'left'
                       }}
                     >
-                      <option value="">Select employee</option>
+                      <option value="">Select</option>
                       {employeeNames.map((name) => (
                         <option key={name} value={name}>
                           {name}
@@ -102,7 +102,7 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
                     style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
                   >
                     <span className={`work-desc-display ${!employee.tasks ? 'empty' : ''}`}>
-                      {employee.tasks || 'Click to add tasks'}
+                      {employee.tasks || 'Click to add'}
                     </span>
                   </div>
                 </td>
@@ -139,7 +139,7 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
                     textAlign: 'left'
                   }}
                 >
-                  <option value="">Select employee</option>
+                  <option value="">Select</option>
                   {employeeNames.map((name) => (
                     <option key={name} value={name}>
                       {name}

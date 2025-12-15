@@ -23,9 +23,9 @@ export class TimesheetModel {
     this.name = data.name || ''
     this.site = data.site || ''
     this.weather = data.weather || ''
-    this.startTime = data.startTime || '07:00'
-    this.endTime = data.endTime || '15:30'
-    this.breakLength = data.breakLength || '00:30'
+    this.startTime = data.startTime || ''
+    this.endTime = data.endTime || ''
+    this.breakLength = data.breakLength || ''
     this.tasksCompleted = data.tasksCompleted || ''
     this.employees = data.employees || []
     this.subcontractors = data.subcontractors || []
@@ -41,9 +41,9 @@ export class TimesheetModel {
       name: '',
       site: '',
       weather: '',
-      startTime: '07:00',
-      endTime: '15:30',
-      breakLength: '00:30',
+      startTime: '',
+      endTime: '',
+      breakLength: '',
       tasksCompleted: '',
       employees: [],
       subcontractors: [],

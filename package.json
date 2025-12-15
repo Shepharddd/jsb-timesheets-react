@@ -2,7 +2,7 @@
   "name": "timesheets-react",
   "version": "1.0.0",
   "type": "module",
-  "homepage": "https://shepharddd.github.io/jsb-timesheets-react",
+  "homepage": "https://timesheets.jamessamuelsbuilder.com.au",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

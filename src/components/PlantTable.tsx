@@ -56,16 +56,16 @@ const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = fal
                       disabled={disabled}
                       style={{
                         width: '100%',
-                        padding: '4px 8px',
+                        padding: '2px 4px',
                         border: 'none',
                         background: 'transparent',
-                        fontSize: '14px',
+                        fontSize: '12px',
                         color: item.name ? '#333' : '#999',
                         cursor: disabled ? 'not-allowed' : 'pointer',
                         textAlign: 'left'
                       }}
                     >
-                      <option value="">Select plant/equipment</option>
+                      <option value="">Select</option>
                       {plantNames.map((name) => (
                         <option key={name} value={name}>
                           {name}
@@ -81,7 +81,7 @@ const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = fal
                     style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
                   >
                     <span className={`work-desc-display ${!item.tasks ? 'empty' : ''}`}>
-                      {item.tasks || 'Click to add tasks'}
+                      {item.tasks || 'Click to add'}
                     </span>
                   </div>
                 </td>
@@ -118,7 +118,7 @@ const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = fal
                     textAlign: 'left'
                   }}
                 >
-                  <option value="">Select plant/equipment</option>
+                  <option value="">Select</option>
                   {plantNames.map((name) => (
                     <option key={name} value={name}>
                       {name}

@@ -40,7 +40,21 @@ const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false }: UserIn
             ) : (
               <select
                 value={timesheet.site || ''}
-                onChange={(e) => onUpdate({ site: e.target.value })}
+                onChange={(e) => {
+                  const newSite = e.target.value
+                  const updates: Partial<{ site: string; startTime: string; endTime: string; breakLength: string }> = {
+                    site: newSite
+                  }
+                  
+                  // Only set default times if site is being selected and times aren't already set
+                  if (newSite && !timesheet.startTime && !timesheet.endTime) {
+                    updates.startTime = '07:00'
+                    updates.endTime = '15:30'
+                    updates.breakLength = '00:30'
+                  }
+                  
+                  onUpdate(updates)
+                }}
                 disabled={disabled}
                 style={{
                   width: '100%',
@@ -87,7 +101,7 @@ const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false }: UserIn
                 onClick={() => !disabled && onTimeClick('startTime')}
                 style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
               >
-                <span className="time-display">{timesheet.startTime}</span>
+                <span className="time-display">{timesheet.startTime || '--:--'}</span>
               </div>
             </div>
             <div className="user-time-row-item">
@@ -97,7 +111,7 @@ const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false }: UserIn
                 onClick={() => !disabled && onTimeClick('endTime')}
                 style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
               >
-                <span className="time-display">{timesheet.endTime}</span>
+                <span className="time-display">{timesheet.endTime || '--:--'}</span>
               </div>
             </div>
             <div className="user-time-row-item">
@@ -108,12 +122,15 @@ const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false }: UserIn
                 style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}
               >
                 <span className="time-display">
-                {(() => {
-                  const timeStr = timesheet.breakLength || '00:30'
-                  const [hours, minutes] = timeStr.split(':').map(Number)
-                  const totalMinutes = (hours || 0) * 60 + (minutes || 0)
-                  return `${totalMinutes} min`
-                })()}
+                {timesheet.breakLength 
+                  ? (() => {
+                      const timeStr = timesheet.breakLength
+                      const [hours, minutes] = timeStr.split(':').map(Number)
+                      const totalMinutes = (hours || 0) * 60 + (minutes || 0)
+                      return `${totalMinutes} min`
+                    })()
+                  : '-- min'
+                }
               </span>
               </div>
             </div>

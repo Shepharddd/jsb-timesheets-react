@@ -299,14 +299,22 @@ const Home = ({ user }: HomeProps) => {
               {week1Days.map((timesheet, index) => {
                 const date = timesheet.date
                 
-                // Calculate hours
+                // Calculate hours (including break time)
                 let hours = '-'
                 if (timesheet.startTime && timesheet.endTime) {
                   const start = timesheet.startTime.split(':').map(Number)
                   const end = timesheet.endTime.split(':').map(Number)
                   const startMinutes = start[0] * 60 + start[1]
                   const endMinutes = end[0] * 60 + end[1]
-                  const diffMinutes = endMinutes - startMinutes
+                  let diffMinutes = endMinutes - startMinutes
+                  
+                  // Subtract break time if provided
+                  if (timesheet.breakLength) {
+                    const breakTime = timesheet.breakLength.split(':').map(Number)
+                    const breakMinutes = (breakTime[0] || 0) * 60 + (breakTime[1] || 0)
+                    diffMinutes -= breakMinutes
+                  }
+                  
                   if (diffMinutes > 0) {
                     const totalHours = diffMinutes / 60
                     hours = totalHours.toFixed(1)
@@ -364,14 +372,22 @@ const Home = ({ user }: HomeProps) => {
               {week2Days.map((timesheet, index) => {
                 const date = timesheet.date
                 // Use viewmodel data if available, otherwise use timesheet from list
-                // Calculate hours
+                // Calculate hours (including break time)
                 let hours = '-'
                 if (timesheet.startTime && timesheet.endTime) {
                   const start = timesheet.startTime.split(':').map(Number)
                   const end = timesheet.endTime.split(':').map(Number)
                   const startMinutes = start[0] * 60 + start[1]
                   const endMinutes = end[0] * 60 + end[1]
-                  const diffMinutes = endMinutes - startMinutes
+                  let diffMinutes = endMinutes - startMinutes
+                  
+                  // Subtract break time if provided
+                  if (timesheet.breakLength) {
+                    const breakTime = timesheet.breakLength.split(':').map(Number)
+                    const breakMinutes = (breakTime[0] || 0) * 60 + (breakTime[1] || 0)
+                    diffMinutes -= breakMinutes
+                  }
+                  
                   if (diffMinutes > 0) {
                     const totalHours = diffMinutes / 60
                     hours = totalHours.toFixed(1)
