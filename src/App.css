@@ -1,0 +1,1003 @@
+
+/* Layout */
+.app-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+
+}
+.two-col {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  align-items: stretch;
+  min-height: 100%;
+}
+.user-info-row {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  width: 100%;
+  align-items: flex-start;
+}
+.input-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.user-time-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.user-time-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 30px;
+  width: 100%;
+  padding: 10px 0;
+  flex-wrap: nowrap;
+}
+.user-time-row-item label {
+  white-space: nowrap;
+  font-weight: normal;
+}
+.user-time-row-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.user-time-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 8px 12px;
+  background-color: #fff;
+  min-width: 100px;
+  text-align: center;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+}
+.user-time-input:hover {
+  border-color: #999;
+  background-color: #f9f9f9;
+}
+.user-time-input .time-display {
+  min-width: auto;
+  text-align: center;
+  font-weight: 500;
+}
+.notes-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 20px;
+  width: 100%;
+}
+.notes-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+.notes-item label {
+  font-weight: 500;
+  font-size: 14px;
+  color: #333;
+}
+.notes-item textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: none;
+  box-sizing: border-box;
+  margin: 0;
+}
+.notes-container .submit-btn {
+  margin-top: 0;
+  width: auto;
+  align-self: flex-start;
+}
+@media (max-width: 768px) {
+  .notes-container {
+    flex-direction: column;
+  }
+  .notes-item {
+    width: 100%;
+  }
+}
+.input-row {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0px;
+}
+.input-row input,
+.input-row select {
+  width: 100%;
+  /* max-width: 250px; */
+  padding: 0;
+  margin-top: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  text-align: right;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Date Navigation */
+.date-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.date-nav-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.date-nav-btn:hover:not(.disabled) {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.date-nav-btn:active:not(.disabled) {
+  background: #e0e0e0;
+}
+
+.date-nav-btn.disabled,
+.date-nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: transparent;
+}
+
+.date-nav-btn i {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.date-display {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  padding: 4px 8px;
+  min-width: 150px;
+}
+.input-row input:focus,
+.input-row select:focus {
+  outline: none;
+}
+
+.week-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.week-nav-btn {
+  background: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.week-nav-btn:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.week-nav-btn.active {
+  background: #002512;
+  color: white;
+  border-color: #002512;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+.section-header h2 {
+  margin-top: 0;
+  padding-top: 0;
+  margin-bottom: 0;
+}
+
+@media (max-width: 800px) {
+  .two-col {
+    flex-direction: column;
+  }
+  .two-col img {
+    max-width: 100% !important;
+    width: 100%;
+  }
+  
+  .date-navigation {
+    max-width: 100%;
+  }
+  
+  .date-display {
+    font-size: 16px;
+    min-width: 120px;
+  }
+  
+  .date-nav-btn {
+    width: 28px;
+    height: 28px;
+    padding: 4px 8px;
+  }
+}
+
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: white;
+  table-layout: fixed;
+}
+th {
+  background: #002512;
+  color: white;
+  font-weight: 400;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 18px;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.5px;
+}
+th:first-child {
+  border-top-left-radius: 8px;
+}
+th:last-child {
+  border-top-right-radius: 8px;
+}
+td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  background: white;
+}
+/* Make Name columns smaller */
+#employeeTable th:first-child,
+#employeeTable td:first-child,
+#plantTable th:first-child,
+#plantTable td:first-child,
+#subTable th:first-child,
+#subTable td:first-child {
+  width: 200px;
+  min-width: 120px;
+  max-width: 200px;
+}
+
+@media (max-width: 600px) {
+  #employeeTable th:first-child,
+  #employeeTable td:first-child,
+  #plantTable th:first-child,
+  #plantTable td:first-child,
+  #subTable th:first-child,
+  #subTable td:first-child {
+    width: 90px;
+    min-width: 60px;
+    max-width: 110px;
+  }
+}
+/* Plant table name column - smaller */
+/* #plantTable th:nth-child(2),
+#plantTable td:nth-child(2) {
+  width: 120px;
+  min-width: 120px;
+  max-width: 120px;
+} */
+
+/* Make Time In and Time Out columns smaller */
+#employeeTable th:nth-child(2),
+#employeeTable th:nth-child(3),
+#employeeTable td:nth-child(2),
+#employeeTable td:nth-child(3),
+#subTable th:nth-child(2),
+#subTable th:nth-child(3),
+#subTable td:nth-child(2),
+#subTable td:nth-child(3) {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+}
+#employeeTable td:nth-child(2) input,
+#employeeTable td:nth-child(3) input,
+#subTable td:nth-child(2) input,
+#subTable td:nth-child(3) input {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Center checkbox and delete button columns */
+/* #plantTable th:first-child,
+#plantTable td:first-child, */
+#employeeTable th:last-child,
+#employeeTable td:last-child,
+#subTable th:last-child,
+#subTable td:last-child,
+#plantTable th:last-child,
+#plantTable td:last-child {
+  text-align: center;
+}
+/* Make delete columns match button width */
+#employeeTable th:last-child,
+#employeeTable td:last-child,
+#subTable th:last-child,
+#subTable td:last-child,
+#plantTable th:last-child,
+#plantTable td:last-child {
+  width: 48px;
+  min-width: 48px;
+  max-width: 48px;
+  padding: 8px 4px;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 8px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 8px;
+}
+tr:hover td {
+  background: #f8f9ff;
+  transition: background-color 0.2s ease;
+}
+tr:last-child td {
+  border-bottom: none;
+}
+/* Table inputs */
+/* Remove all styling from text inputs */
+table input[type="text"] {
+  all: unset;
+  width: 100%;
+}
+table input[type="text"]:focus {
+  all: unset;
+  width: 100%;
+}
+/* Remove styling from time inputs and selects */
+table select {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+table select:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+/* Remove all styling from time inputs */
+table input[type="time"] {
+  all: unset;
+  width: 100%;
+}
+table input[type="time"]:focus {
+  all: unset;
+  width: 100%;
+}
+table input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #667eea;
+  display: block;
+  margin: 0 auto;
+}
+/* Delete button in tables */
+table .delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+table .delete-btn i {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+table .delete-btn:hover {
+  background: #c82333;
+  transform: scale(1.05);
+}
+
+
+/* Inputs */
+input, textarea {
+  width: 95%;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+.add-btn, .submit-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  /* margin-top: 10px; */
+  font-weight: 500;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.add-btn:hover, .submit-btn:hover {
+  background: #0056b3;
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.submit-btn {
+  background: #002512;
+  padding: 12px 24px;
+  font-size: 16px;
+  width: 40%;
+  /* margin-top: 20px; */
+}
+.submit-btn:hover {
+  background: #002512;
+}
+
+/* Responsive table improvements */
+@media (max-width: 1050px) {
+  .section-header {
+    margin-bottom: 0px;
+  }
+  .section-header h2 {
+    font-size: 24px;
+    margin-bottom: 0px;
+  }
+  .add-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  table {
+    font-size: 13px;
+  }
+  th {
+    font-size: 15px;
+    padding: 12px 8px;
+    letter-spacing: 0.3px;
+  }
+  td {
+    padding: 10px 8px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  table input[type="text"] {
+    all: unset;
+    width: 100%;
+  }
+  table select {
+    font-size: 13px;
+    padding: 4px 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  table input[type="time"] {
+    all: unset;
+    width: 100%;
+    font-size: 13px;
+  }
+  table .delete-btn {
+    font-size: 16px;
+    padding: 6px 10px;
+    width: 32px;
+    height: 32px;
+  }
+
+  #employeeTable th:first-child,
+  #employeeTable td:first-child,
+  #plantTable th:first-child,
+  #plantTable td:first-child,
+  #subTable th:first-child,
+  #subTable td:first-child {
+    width: 110px;
+    min-width: 110px;
+    max-width: 110px;
+  }
+
+  /* Make Time In and Time Out columns smaller on mobile */
+  #employeeTable th:nth-child(2),
+  #employeeTable th:nth-child(3),
+  #employeeTable td:nth-child(2),
+  #employeeTable td:nth-child(3),
+  #subTable th:nth-child(2),
+  #subTable th:nth-child(3),
+  #subTable td:nth-child(2),
+  #subTable td:nth-child(3) {
+    width: 70px;
+    min-width: 70px;
+    max-width: 70px;
+  }
+
+  /* Make delete columns match button width */
+  #employeeTable th:last-child,
+  #employeeTable td:last-child,
+  #subTable th:last-child,
+  #subTable td:last-child,
+  #plantTable th:last-child,
+  #plantTable td:last-child {
+    width: 48px;
+    min-width: 48px;
+    max-width: 48px;
+    padding: 8px 4px;
+  }
+
+  /* Improve readability for work description cells on mobile */
+  .work-desc-cell,
+  .time-cell,
+  .sub-name-cell {
+    padding: 10px 8px;
+    min-height: 32px;
+  }
+
+  /* User time container on mobile - stack vertically if needed */
+  .user-info-row {
+    flex-direction: row;
+    gap: 20px;
+  }
+  .input-container {
+    width: 100%;
+  }
+  .input-row {
+    width: 100%;
+  }
+  .input-row select,
+  .input-row input {
+    max-width: 100% !important;
+    width: 100%;
+  }
+  .user-time-container {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    gap: 15px;
+  }
+  
+  /* User time inputs on mobile - keep on one row */
+  .user-time-row {
+    flex-wrap: nowrap;
+    gap: 30px;
+    padding: 8px 0;
+    /* width: 100%; */
+  }
+  .user-time-row-item label {
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .user-time-input {
+    min-width: 70px;
+    padding: 6px 8px;
+    flex-shrink: 1;
+  }
+  .user-time-input .time-display {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .user-info-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .input-container {
+    width: 100%;
+  }
+  .input-row {
+    width: 100%;
+  }
+  .input-row select,
+  .input-row input {
+    max-width: 100% !important;
+    width: 100%;
+  }
+  .user-time-container {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+    width: 100%;
+  }
+  .date-navigation {
+    width: 100%;
+  }
+  .user-time-row {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  .section-header h2 {
+    font-size: 20px;
+    margin-bottom: 0px;
+  }
+  .add-btn {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  table {
+    font-size: 12px;
+  }
+  th {
+    font-size: 16px;
+    padding: 10px 6px;
+  }
+  td {
+    padding: 8px 6px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  table input[type="text"] {
+    all: unset;
+    width: 100%;
+  }
+  table select {
+    font-size: 12px;
+    padding: 4px 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  table input[type="time"] {
+    all: unset;
+    width: 100%;
+    font-size: 12px;
+  }
+  table .delete-btn {
+    font-size: 14px;
+    padding: 6px 8px;
+    width: 28px;
+    height: 28px;
+  }
+
+  #employeeTable th:first-child,
+  #employeeTable td:first-child,
+  #plantTable th:first-child,
+  #plantTable td:first-child,
+  #subTable th:first-child,
+  #subTable td:first-child {
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
+  }
+
+  /* Make Time In and Time Out columns even smaller on small mobile */
+  #employeeTable th:nth-child(2),
+  #employeeTable th:nth-child(3),
+  #employeeTable td:nth-child(2),
+  #employeeTable td:nth-child(3),
+  #subTable th:nth-child(2),
+  #subTable th:nth-child(3),
+  #subTable td:nth-child(2),
+  #subTable td:nth-child(3) {
+    width: 45px;
+    min-width: 45px;
+    max-width: 45px;
+  }
+  /* Make delete columns match button width */
+  #employeeTable th:last-child,
+  #employeeTable td:last-child,
+  #subTable th:last-child,
+  #subTable td:last-child,
+  #plantTable th:last-child,
+  #plantTable td:last-child {
+    width: 28px;
+    min-width: 28px;
+    max-width: 28px;
+    padding: 8px 4px;
+  }
+
+  /* Improve readability for work description cells on small mobile */
+  .work-desc-cell,
+  .time-cell,
+  .sub-name-cell {
+    padding: 8px 6px;
+    min-height: 32px;
+  }
+
+  /* User time inputs on small mobile - keep compact and on one row */
+  .user-time-row {
+    gap: 6px;
+    padding: 6px 0;
+  }
+  .user-time-row-item label {
+    font-size: 12px;
+  }
+  .user-time-input {
+    min-width: 60px;
+    padding: 5px 6px;
+  }
+  .user-time-input .time-display {
+    font-size: 12px;
+  }
+}
+
+/* Work Description Modal */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-close {
+  font-size: 28px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.modal-body {
+  display: flex;
+  padding: 20px;
+  /* width: 100%; */
+  flex: 1;
+  /* overflow-y: auto; */
+}
+
+.modal-body textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background: #007bff;
+  color: white;
+}
+
+.modal-btn:hover {
+  background: #0056b3;
+}
+
+.modal-btn-cancel {
+  background: #6c757d;
+}
+
+.modal-btn-cancel:hover {
+  background: #545b62;
+}
+
+/* Work description cell styling */
+.work-desc-cell {
+  cursor: pointer;
+  padding: 8px;
+  min-height: 20px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.work-desc-cell:active,
+.work-desc-cell:focus {
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+/* Constrain work description columns to prevent expansion */
+#employeeTable th:nth-child(4),
+#employeeTable td:nth-child(4),
+#subTable th:nth-child(4),
+#subTable td:nth-child(4),
+#plantTable th:nth-child(2),
+#plantTable td:nth-child(2) {
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.work-desc-cell:hover {
+  background-color: #f0f0f0;
+}
+
+/* Time cell styling */
+.time-cell {
+  cursor: pointer;
+  padding: 8px;
+  min-height: 20px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.time-cell:active,
+.time-cell:focus {
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+.time-cell:hover {
+  background-color: #f0f0f0;
+}
+
+/* Subcontractor name cell styling */
+.sub-name-cell {
+  cursor: pointer;
+  padding: 8px;
+  min-height: 20px;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.sub-name-cell:active,
+.sub-name-cell:focus {
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+.sub-name-cell:hover {
+  background-color: #f0f0f0;
+}
+
+.sub-name-display {
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sub-name-display.empty {
+  color: #999;
+  font-style: italic;
+}
+
+.work-desc-display {
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+  width: 100%;
+}
+
+.work-desc-display.empty {
+  color: #999;
+  font-style: italic;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-desc-input {
+  display: none;
+}
+
+/* Loading Overlay styles moved to components/loading/loading.css */
+/* Toast Notification styles moved to components/toast/toast.css

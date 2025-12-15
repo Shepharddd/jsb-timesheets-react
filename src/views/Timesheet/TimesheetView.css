@@ -1,0 +1,93 @@
+.timesheet-container {
+  position: relative;
+}
+
+.timesheet-loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(1px);
+}
+
+.timesheet-loading-text {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.timesheet-logo-section {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.timesheet-back-button {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+.timesheet-logo {
+  max-height: 150px;
+  max-width: 100%;
+  aspect-ratio: 4;
+  object-fit: contain;
+}
+
+.timesheet-logo-spacer {
+  width: 120px;
+}
+
+.timesheet-week-nav-section {
+  margin-bottom: 10px;
+  padding: 10px 20px;
+}
+
+.timesheet-week-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.timesheet-week-nav-button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+
+.timesheet-week-range {
+  font-weight: 600;
+  font-size: 16px;
+  min-width: 200px;
+  text-align: center;
+}
+
+.timesheet-section {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.timesheet-section.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.timesheet-submit-section {
+  align-items: center;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.timesheet-submit-section.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+

@@ -1,0 +1,14 @@
+/* Layout */
+body {
+  font-family: Arial, sans-serif;
+  /* margin: 20px; */
+  background: #f4f4f4;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#root {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
