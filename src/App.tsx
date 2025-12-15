@@ -30,7 +30,7 @@ function App() {
   return (
     <div>
       <div className="section timesheet-logo-section">
-          <img src="/jsb-timesheets-react/assets/JSBLogo.jpg" alt="JSB Logo" className="timesheet-logo" />
+          <img src="/assets/JSBLogo.jpg" alt="JSB Logo" className="timesheet-logo" style={{ maxHeight: '150px', maxWidth: '100%', aspectRatio: '4', objectFit: 'contain' }} />
           <div className="timesheet-logo-spacer"></div>
         </div>
       {(view === 'login' || !user) ? <Login /> : <Home user={user} />}
