@@ -135,8 +135,7 @@ function toKey(date: Date): string {
 export function formatDate(input: Date | string): string {
   const date = typeof input === 'string' ? new Date(input) : input;
   return date.toLocaleDateString('en-US', { 
-    weekday: 'short', 
-    month: 'short', 
+    weekday: 'short',
     day: 'numeric'
   })
 }
