@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import type { Employee, Subcontractor, Plant } from '../types'
+import { useState } from 'react'
+import type { EmployeeRow, SubcontractorRow, PlantRow } from '../types'
 
 interface AddRowModalProps {
   type: 'employee' | 'subcontractor' | 'plant'
-  initialData?: Partial<Employee & Subcontractor & Plant>
-  onSave: (data: Employee | Subcontractor | Plant) => void
+  initialData?: Partial<EmployeeRow & SubcontractorRow & PlantRow>
+  onSave: (data: EmployeeRow | SubcontractorRow | PlantRow) => void
   onClose: () => void
 }
 
@@ -23,7 +23,7 @@ const AddRowModal = ({ type, initialData = {}, onSave, onClose }: AddRowModalPro
       onSave({
         name: formData.name,
         tasks: formData.tasks
-      } as Plant)
+      } as PlantRow)
     } else {
       // Employees and subcontractors need all fields
       onSave({
@@ -31,7 +31,7 @@ const AddRowModal = ({ type, initialData = {}, onSave, onClose }: AddRowModalPro
         startTime: formData.startTime,
         endTime: formData.endTime,
         tasks: formData.tasks
-      } as Employee | Subcontractor)
+      } as EmployeeRow | SubcontractorRow)
     }
   }
 

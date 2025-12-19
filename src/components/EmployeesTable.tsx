@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import type { Employee } from '../types'
-import { getEmployeeNames } from '../services/timesheetService'
+import type { EmployeeRow } from '../types'
 
 interface EmployeesTableProps {
-  employees: Employee[]
+  employeeRows: EmployeeRow[]
+  employees: string[]
   onAdd: () => void
   onEdit: (index: number) => void
   onEditName: (index: number, name: string) => void
@@ -12,25 +11,7 @@ interface EmployeesTableProps {
   disabled?: boolean
 }
 
-const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTimeClick, disabled = false }: EmployeesTableProps) => {
-  const [employeeNames, setEmployeeNames] = useState<string[]>([])
-  const [isLoadingNames, setIsLoadingNames] = useState(true)
-
-  useEffect(() => {
-    const fetchEmployeeNames = async () => {
-      try {
-        setIsLoadingNames(true)
-        const names = await getEmployeeNames()
-        setEmployeeNames(names)
-      } catch (error) {
-        console.error('Error loading employee names:', error)
-      } finally {
-        setIsLoadingNames(false)
-      }
-    }
-
-    fetchEmployeeNames()
-  }, [])
+const EmployeesTable = ({ employeeRows, employees, onAdd, onEdit, onEditName, onDelete, onTimeClick, disabled = false }: EmployeesTableProps) => {
   return (
     <>
       <div className="section-header">
@@ -47,12 +28,9 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
           </tr>
         </thead>
         <tbody>
-          {employees.map((employee, index) => (
+          {employeeRows.map((employee, index) => (
               <tr key={index}>
                 <td>
-                  {isLoadingNames ? (
-                    <span style={{ color: '#999', fontSize: '14px' }}>Loading...</span>
-                  ) : (
                     <select
                       value={employee.name || ''}
                       onChange={(e) => !disabled && onEditName(index, e.target.value)}
@@ -69,13 +47,12 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
                       }}
                     >
                       <option value="">Select</option>
-                      {employeeNames.map((name) => (
+                      {employees.map((name) => (
                         <option key={name} value={name}>
                           {name}
                         </option>
                       ))}
                     </select>
-                  )}
                 </td>
                 <td>
                   <div
@@ -116,15 +93,12 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
           {/* Always show an extra empty row for input */}
           <tr>
             <td>
-              {isLoadingNames ? (
-                <span style={{ color: '#999', fontSize: '14px' }}>Loading...</span>
-              ) : (
                 <select
                   value=""
                   onChange={(e) => {
                     if (e.target.value && !disabled) {
                       onAdd()
-                      onEditName(employees.length, e.target.value)
+                      onEditName(employeeRows.length, e.target.value)
                     }
                   }}
                   disabled={disabled}
@@ -140,13 +114,12 @@ const EmployeesTable = ({ employees, onAdd, onEdit, onEditName, onDelete, onTime
                   }}
                 >
                   <option value="">Select</option>
-                  {employeeNames.map((name) => (
+                  {employees.map((name) => (
                     <option key={name} value={name}>
                       {name}
                     </option>
                   ))}
                 </select>
-              )}
             </td>
             <td>
               <div

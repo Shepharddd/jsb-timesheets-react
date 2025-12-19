@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import type { Plant } from '../types'
-import { getPlantNames } from '../services/timesheetService'
+import type { PlantRow } from '../types'
 
 interface PlantTableProps {
-  plant: Plant[]
+  plantRows: PlantRow[]
+  plant: string[]
   onAdd: () => void
   onEdit: (index: number) => void
   onEditName: (index: number, name: string) => void
@@ -11,25 +10,7 @@ interface PlantTableProps {
   disabled?: boolean
 }
 
-const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = false }: PlantTableProps) => {
-  const [plantNames, setPlantNames] = useState<string[]>([])
-  const [isLoadingNames, setIsLoadingNames] = useState(true)
-
-  useEffect(() => {
-    const fetchPlantNames = async () => {
-      try {
-        setIsLoadingNames(true)
-        const names = await getPlantNames()
-        setPlantNames(names)
-      } catch (error) {
-        console.error('Error loading plant names:', error)
-      } finally {
-        setIsLoadingNames(false)
-      }
-    }
-
-    fetchPlantNames()
-  }, [])
+const PlantTable = ({ plantRows, plant, onAdd, onEdit, onEditName, onDelete, disabled = false }: PlantTableProps) => {
   return (
     <>
       <div className="section-header">
@@ -44,35 +25,31 @@ const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = fal
           </tr>
         </thead>
         <tbody>
-          {plant.map((item, index) => (
+          {plantRows.map((item, index) => (
               <tr key={index}>
                 <td>
-                  {isLoadingNames ? (
-                    <span style={{ color: '#999', fontSize: '14px' }}>Loading...</span>
-                  ) : (
-                    <select
-                      value={item.name || ''}
-                      onChange={(e) => !disabled && onEditName(index, e.target.value)}
-                      disabled={disabled}
-                      style={{
-                        width: '100%',
-                        padding: '2px 4px',
-                        border: 'none',
-                        background: 'transparent',
-                        fontSize: '12px',
-                        color: item.name ? '#333' : '#999',
-                        cursor: disabled ? 'not-allowed' : 'pointer',
-                        textAlign: 'left'
-                      }}
-                    >
-                      <option value="">Select</option>
-                      {plantNames.map((name) => (
-                        <option key={name} value={name}>
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  )}
+                  <select
+                    value={item.name || ''}
+                    onChange={(e) => !disabled && onEditName(index, e.target.value)}
+                    disabled={disabled}
+                    style={{
+                      width: '100%',
+                      padding: '2px 4px',
+                      border: 'none',
+                      background: 'transparent',
+                      fontSize: '12px',
+                      color: item.name ? '#333' : '#999',
+                      cursor: disabled ? 'not-allowed' : 'pointer',
+                      textAlign: 'left'
+                    }}
+                  >
+                    <option value="">Select</option>
+                    {plant.map((name) => (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    ))}
+                  </select>
                 </td>
                 <td>
                   <div
@@ -95,37 +72,33 @@ const PlantTable = ({ plant, onAdd, onEdit, onEditName, onDelete, disabled = fal
           {/* Always show an extra empty row for input */}
           <tr>
             <td>
-              {isLoadingNames ? (
-                <span style={{ color: '#999', fontSize: '14px' }}>Loading...</span>
-              ) : (
-                <select
-                  value=""
-                  onChange={(e) => {
-                    if (e.target.value && !disabled) {
-                      onAdd()
-                      onEditName(plant.length, e.target.value)
-                    }
-                  }}
-                  disabled={disabled}
-                  style={{
-                    width: '100%',
-                    padding: '4px 8px',
-                    border: 'none',
-                    background: 'transparent',
-                    fontSize: '14px',
-                    color: '#999',
-                    cursor: disabled ? 'not-allowed' : 'pointer',
-                    textAlign: 'left'
-                  }}
-                >
-                  <option value="">Select</option>
-                  {plantNames.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
-                    </option>
-                  ))}
-                </select>
-              )}
+              <select
+                value=""
+                onChange={(e) => {
+                  if (e.target.value && !disabled) {
+                    onAdd()
+                    onEditName(plant.length, e.target.value)
+                  }
+                }}
+                disabled={disabled}
+                style={{
+                  width: '100%',
+                  padding: '4px 8px',
+                  border: 'none',
+                  background: 'transparent',
+                  fontSize: '14px',
+                  color: '#999',
+                  cursor: disabled ? 'not-allowed' : 'pointer',
+                  textAlign: 'left'
+                }}
+              >
+                <option value="">Select</option>
+                {plant.map((name) => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </select>
             </td>
             <td>
               <div

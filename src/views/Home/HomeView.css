@@ -13,6 +13,22 @@
   margin-bottom: 20px;
 }
 
+.home-week-section {
+  margin-bottom: 30px;
+}
+
+.home-week-section:last-child {
+  margin-bottom: 0;
+}
+
+.home-week-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  margin-top: 10px;
+  color: #333;
+}
+
 .home-nav-button {
   margin-bottom: 20px;
 }
@@ -63,11 +79,11 @@
   transition: background-color 0.2s ease;
 }
 
-.home-table-row-submitted {
+.home-table-row-saved {
   background-color: #f0f9f0;
 }
 
-.home-table-row-submitted:hover {
+.home-table-row-saved:hover {
   background-color: #e8f5e9;
 }
 
@@ -200,7 +216,7 @@
   color: white;
 }
 
-.home-day-status-submitted {
+.home-day-status-saved {
   background-color: #4caf50;
 }
 

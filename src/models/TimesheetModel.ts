@@ -1,4 +1,4 @@
-import type { TimesheetData, Employee, Subcontractor, Plant, TimesheetStatus } from '../types'
+import { TimesheetData, EmployeeRow, SubcontractorRow, PlantRow, TimesheetStatus } from '../types'
 import { TimesheetStatus as Status } from '../types'
 
 /**
@@ -13,9 +13,9 @@ export class TimesheetModel {
   endTime: string
   breakLength: string
   tasksCompleted: string
-  employees: Employee[]
-  subcontractors: Subcontractor[]
-  plant: Plant[]
+  employees: EmployeeRow[]
+  subcontractors: SubcontractorRow[]
+  plant: PlantRow[]
   status: TimesheetStatus
 
   constructor(date: Date, data: Partial<TimesheetData> = {}) {
@@ -30,7 +30,13 @@ export class TimesheetModel {
     this.employees = data.employees || []
     this.subcontractors = data.subcontractors || []
     this.plant = data.plant || []
-    this.status = data.status || Status.NEW
+    // Convert legacy "submitted" status to "saved" when loading from database
+    let status = data.status || Status.NEW
+    // Check if status is the legacy "submitted" string value from database
+    if (String(status) === 'submitted') {
+      status = Status.SAVED
+    }
+    this.status = status
   }
 
   /**
@@ -71,6 +77,26 @@ export class TimesheetModel {
     }
   }
 
+   /**
+   * Convert to plain object for storage
+   */
+   toJSONWithSave(): TimesheetData {
+    return {
+      name: this.name,
+      site: this.site,
+      weather: this.weather,
+      startTime: this.startTime,
+      endTime: this.endTime,
+      breakLength: this.breakLength,
+      tasksCompleted: this.tasksCompleted,
+      employees: this.employees,
+      subcontractors: this.subcontractors,
+      plant: this.plant,
+      status: TimesheetStatus.SAVED
+    }
+  }
+
+
   /**
    * Create from JSON data
    */
@@ -93,7 +119,7 @@ export class TimesheetModel {
   /**
    * Add employee
    */
-  addEmployee(employee: Employee): this {
+  addEmployee(employee: EmployeeRow): this {
     this.employees = [...this.employees, employee]
     this.status = Status.EDITED
     return this
@@ -102,7 +128,7 @@ export class TimesheetModel {
   /**
    * Update employee
    */
-  updateEmployee(index: number, updates: Partial<Employee>): this {
+  updateEmployee(index: number, updates: Partial<EmployeeRow>): this {
     this.employees[index] = { ...this.employees[index], ...updates }
     this.status = Status.EDITED
     return this
@@ -120,7 +146,7 @@ export class TimesheetModel {
   /**
    * Add subcontractor
    */
-  addSubcontractor(subcontractor: Subcontractor): this {
+  addSubcontractor(subcontractor: SubcontractorRow): this {
     this.subcontractors = [...this.subcontractors, subcontractor]
     this.status = Status.EDITED
     return this
@@ -129,7 +155,7 @@ export class TimesheetModel {
   /**
    * Update subcontractor
    */
-  updateSubcontractor(index: number, updates: Partial<Subcontractor>): this {
+  updateSubcontractor(index: number, updates: Partial<SubcontractorRow>): this {
     this.subcontractors[index] = { ...this.subcontractors[index], ...updates }
     this.status = Status.EDITED
     return this
@@ -147,7 +173,7 @@ export class TimesheetModel {
   /**
    * Add plant/equipment
    */
-  addPlant(plant: Plant): this {
+  addPlant(plant: PlantRow): this {
     this.plant = [...this.plant, plant]
     this.status = Status.EDITED
     return this
@@ -156,7 +182,7 @@ export class TimesheetModel {
   /**
    * Update plant/equipment
    */
-  updatePlant(index: number, updates: Partial<Plant>): this {
+  updatePlant(index: number, updates: Partial<PlantRow>): this {
     this.plant[index] = { ...this.plant[index], ...updates }
     this.status = Status.EDITED
     return this
@@ -168,6 +194,21 @@ export class TimesheetModel {
   removePlant(index: number): this {
     this.plant = this.plant.filter((_, i) => i !== index)
     this.status = Status.EDITED
+    return this
+  }
+
+  removeEmptyRows(): this {
+    if (this.employees) {
+      this.employees = this.employees.filter(emp => emp.name && emp.name.trim() !== '')
+    }
+    // Remove subcontractors with empty names
+    if (this.subcontractors) {
+      this.subcontractors = this.subcontractors.filter(sub => sub.name && sub.name.trim() !== '')
+    }
+    // Remove plant with empty names
+    if (this.plant) {
+      this.plant = this.plant.filter(p => p.name && p.name.trim() !== '')
+    }
     return this
   }
 }

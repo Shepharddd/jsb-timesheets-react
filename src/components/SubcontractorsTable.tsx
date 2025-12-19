@@ -1,8 +1,7 @@
-import React from 'react'
-import type { Subcontractor } from '../types'
+import type { SubcontractorRow } from '../types'
 
 interface SubcontractorsTableProps {
-  subcontractors: Subcontractor[]
+  subcontractorRows: SubcontractorRow[]
   onAdd: () => void
   onEdit: (index: number) => void
   onEditName?: (index: number) => void
@@ -11,7 +10,7 @@ interface SubcontractorsTableProps {
   disabled?: boolean
 }
 
-const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDelete, onTimeClick, disabled = false }: SubcontractorsTableProps) => {
+const SubcontractorsTable = ({ subcontractorRows, onAdd, onEdit, onEditName, onDelete, onTimeClick, disabled = false }: SubcontractorsTableProps) => {
   return (
     <>
       <div className="section-header">
@@ -28,7 +27,7 @@ const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDele
           </tr>
         </thead>
         <tbody>
-          {subcontractors.map((sub, index) => (
+          {subcontractorRows.map((sub, index) => (
               <tr key={index}>
                 <td>
                   <div 
@@ -85,7 +84,7 @@ const SubcontractorsTable = ({ subcontractors, onAdd, onEdit, onEditName, onDele
                 onClick={() => {
                   if (!disabled && onEditName) {
                     onAdd()
-                    onEditName(subcontractors.length)
+                    onEditName(subcontractorRows.length)
                   }
                 }}
                 style={{ cursor: disabled ? 'not-allowed' : 'pointer', opacity: disabled ? 0.6 : 1 }}

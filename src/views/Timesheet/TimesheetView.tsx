@@ -11,27 +11,29 @@ import WorkDescModal from '../../components/WorkDescModal'
 import SubNameModal from '../../components/SubNameModal'
 import AddRowModal from '../../components/AddRowModal'
 import { TimesheetModel } from '../../models/TimesheetModel'
-import type { ModalType, ModalData, Employee, Subcontractor, Plant, TimesheetData } from '../../types'
-import React from 'react'
+import type { ModalType, ModalData, EmployeeRow, SubcontractorRow, PlantRow, TimesheetData, CompanyData } from '../../types'
+import { formatDate } from '../../utils/utils'
 
 interface TimesheetViewProps {
   timesheet: TimesheetModel
-  currentDate: Date
+  companyData: CompanyData
   onUpdate: (updates: Partial<TimesheetData>) => void
-  onNavigatePrev?: () => void
-  onNavigateNext?: () => void
+  canNavigatePrev: () => boolean
+  onNavigatePrev: () => void
+  canNavigateNext: () => boolean
+  onNavigateNext: () => void
   onBackToHome: () => void
-  formatDate: (date: Date) => string
 }
 
 function TimesheetView({ 
-  timesheet, 
-  currentDate, 
+  timesheet,
+  companyData,
   onUpdate, 
+  canNavigatePrev,
   onNavigatePrev, 
+  canNavigateNext,
   onNavigateNext, 
   onBackToHome,
-  formatDate
 }: TimesheetViewProps) {
   const [activeModal, setActiveModal] = useState<ModalType>(null)
   const [modalData, setModalData] = useState<ModalData>({})
@@ -47,32 +49,32 @@ function TimesheetView({
   }
 
   return (
-    <div className="app-container timesheet-container">
+    <div className="timesheet-container">
       <div className="section timesheet-week-nav-section">
         <div className="date-navigation">
           <button 
             className="submit-btn timesheet-back-button" 
-            onClick={onBackToHome}
+            onClick={() => onBackToHome()}
           >
             Back
           </button>
           <button 
-            className={`date-nav-btn ${!onNavigatePrev ? 'disabled' : ''}`}
+            className={`date-nav-btn ${!canNavigatePrev ? 'disabled' : ''}`}
             aria-label="Previous day"
-            onClick={onNavigatePrev}
-            disabled={!onNavigatePrev}
+            onClick={() => onNavigatePrev()}
+            disabled={!canNavigatePrev}
             style={{ width: '36px', height: '36px', padding: '0' }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
           </button>
-          <div className="date-display">{formatDate(currentDate)}</div>
+          <div className="date-display">{formatDate(timesheet.date)}</div>
           <button 
-            className={`date-nav-btn ${!onNavigateNext ? 'disabled' : ''}`}
+            className={`date-nav-btn ${!canNavigateNext ? 'disabled' : ''}`}
             aria-label="Next day"
             onClick={onNavigateNext}
-            disabled={!onNavigateNext}
+            disabled={!canNavigateNext}
             style={{ width: '36px', height: '36px', padding: '0' }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -85,6 +87,7 @@ function TimesheetView({
       <div className="section timesheet-section">
           <UserInfo
             timesheet={timesheet}
+            sites={companyData.sites}
             onUpdate={onUpdate}
             onTimeClick={(type) => {
               const currentValue = timesheet[type] || (type === 'startTime' ? '07:00' : type === 'endTime' ? '15:30' : '00:30')
@@ -95,7 +98,8 @@ function TimesheetView({
 
       <div className="section timesheet-section">
         <EmployeesTable
-          employees={timesheet.employees}
+          employeeRows={timesheet.employees}
+          employees={companyData.employees}
           onAdd={() => {
             const updatedEmployees = [...timesheet.employees, { name: '', startTime: '07:00', endTime: '15:30', tasks: '' }]
             onUpdate({ employees: updatedEmployees })
@@ -122,7 +126,7 @@ function TimesheetView({
 
       <div className="section timesheet-section">
         <SubcontractorsTable
-          subcontractors={timesheet.subcontractors}
+          subcontractorRows={timesheet.subcontractors}
           onAdd={() => {
             const updatedSubcontractors = [...timesheet.subcontractors, { name: '', startTime: '07:00', endTime: '15:30', tasks: '' }]
             onUpdate({ subcontractors: updatedSubcontractors })
@@ -145,7 +149,8 @@ function TimesheetView({
 
       <div className="section timesheet-section">
         <PlantTable
-          plant={timesheet.plant}
+          plantRows={timesheet.plant}
+          plant={companyData.plant}
           onAdd={() => {
             const updatedPlant = [...timesheet.plant, { name: '', tasks: '' }]
             onUpdate({ plant: updatedPlant })
@@ -295,13 +300,13 @@ function TimesheetView({
           type={modalData.type as 'employee' | 'subcontractor' | 'plant'}
           onSave={(data) => {
             if (modalData.type === 'employee') {
-              const updatedEmployees = [...timesheet.employees, data as Employee]
+              const updatedEmployees = [...timesheet.employees, data as EmployeeRow]
               onUpdate({ employees: updatedEmployees })
             } else if (modalData.type === 'subcontractor') {
-              const updatedSubcontractors = [...timesheet.subcontractors, data as Subcontractor]
+              const updatedSubcontractors = [...timesheet.subcontractors, data as SubcontractorRow]
               onUpdate({ subcontractors: updatedSubcontractors })
             } else {
-              const updatedPlant = [...timesheet.plant, data as Plant]
+              const updatedPlant = [...timesheet.plant, data as PlantRow]
               onUpdate({ plant: updatedPlant })
             }
             closeModal()

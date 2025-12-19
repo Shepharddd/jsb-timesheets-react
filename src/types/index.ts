@@ -1,18 +1,20 @@
-export interface Employee {
+import { TimesheetModel } from "../models/TimesheetModel"
+
+export interface EmployeeRow {
   name: string
   startTime: string
   endTime: string
   tasks: string
 }
 
-export interface Subcontractor {
+export interface SubcontractorRow {
   name: string
   startTime: string
   endTime: string
   tasks: string
 }
 
-export interface Plant {
+export interface PlantRow {
   name: string
   tasks: string
 }
@@ -20,7 +22,7 @@ export interface Plant {
 export enum TimesheetStatus {
   NEW = 'new',
   EDITED = 'edited',
-  SUBMITTED = 'submitted'
+  SAVED = 'saved'
 }
 
 export interface TimesheetData {
@@ -31,9 +33,9 @@ export interface TimesheetData {
   endTime?: string
   breakLength?: string
   tasksCompleted?: string
-  employees?: Employee[]
-  subcontractors?: Subcontractor[]
-  plant?: Plant[]
+  employees?: EmployeeRow[]
+  subcontractors?: SubcontractorRow[]
+  plant?: PlantRow[]
   adminUnlocked?: boolean
   status?: TimesheetStatus
 }
@@ -49,3 +51,13 @@ export interface ModalData {
   [key: string]: unknown
 }
 
+export interface TimeSheets {
+  week1Timesheets: TimesheetModel[]
+  week2Timesheets: TimesheetModel[]
+}
+
+export interface CompanyData {
+  sites: string[]
+  employees: string[]
+  plant: string[]
+}

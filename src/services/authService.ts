@@ -5,7 +5,7 @@ import {
   type User
 } from 'firebase/auth'
 import { OAuthProvider } from 'firebase/auth'
-import { auth } from '../firebase/config'
+import { auth } from '../utils/firebase/config'
 
 /**
  * Sign in with Microsoft

@@ -1,83 +1,59 @@
-import React, { useState, useEffect } from 'react'
 import { TimesheetModel } from '../models/TimesheetModel'
-import { getSites } from '../services/timesheetService'
 
 interface UserInfoProps {
   timesheet: TimesheetModel
   onUpdate: (updates: Partial<{ site: string; weather: string; tasksCompleted: string; startTime: string; endTime: string; breakLength: string }>) => void
   onTimeClick: (type: 'startTime' | 'endTime' | 'breakLength') => void
+  sites: string[]
   disabled?: boolean
 }
 
-const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false }: UserInfoProps) => {
-  const [sites, setSites] = useState<string[]>([])
-  const [isLoadingSites, setIsLoadingSites] = useState(true)
-
-  useEffect(() => {
-    const fetchSites = async () => {
-      try {
-        setIsLoadingSites(true)
-        const sitesList = await getSites()
-        console.log('sitesList', sitesList)
-        setSites(sitesList)
-      } catch (error) {
-        console.error('Error loading sites:', error)
-      } finally {
-        setIsLoadingSites(false)
-      }
-    }
-
-    fetchSites()
-  }, [])
+const UserInfo = ({ timesheet, onUpdate, onTimeClick, disabled = false, sites }: UserInfoProps) => {
   return (
     <>
       <div className="user-info-row">
         <div className="input-container">
           <div className="input-row">
             <label>Site:</label>
-            {isLoadingSites ? (
-              <span>Loading...</span>
-            ) : (
-              <select
-                value={timesheet.site || ''}
-                onChange={(e) => {
-                  const newSite = e.target.value
-                  const updates: Partial<{ site: string; startTime: string; endTime: string; breakLength: string }> = {
-                    site: newSite
-                  }
-                  
-                  // Only set default times if site is being selected and times aren't already set
-                  if (newSite && !timesheet.startTime && !timesheet.endTime) {
-                    updates.startTime = '07:00'
-                    updates.endTime = '15:30'
-                    updates.breakLength = '00:30'
-                  }
-                  
-                  onUpdate(updates)
-                }}
-                disabled={disabled}
-                style={{
-                  width: '100%',
-                  maxWidth: '250px',
-                  padding: '0',
-                  marginTop: '0',
-                  border: 'none',
-                  background: 'transparent',
-                  textAlign: 'right',
-                  fontSize: 'inherit',
-                  fontFamily: 'inherit',
-                  color: timesheet.site ? 'inherit' : '#999',
-                  cursor: disabled ? 'not-allowed' : 'pointer'
-                }}
-              >
-                <option value="">Select a site</option>
-                {sites.map((site) => (
-                  <option key={site} value={site}>
-                    {site}
-                  </option>
-                ))}
-              </select>
-            )}
+            <select
+              value={timesheet.site || ''}
+              onChange={(e) => {
+                const newSite = e.target.value
+                const updates: Partial<{ site: string; startTime: string; endTime: string; breakLength: string }> = {
+                  site: newSite
+                }
+                
+                // Only set default times if site is being selected and times aren't already set
+                if (newSite && !timesheet.startTime && !timesheet.endTime) {
+                  updates.startTime = '07:00'
+                  updates.endTime = '15:30'
+                  updates.breakLength = '00:30'
+                }
+                
+                onUpdate(updates)
+              }}
+              disabled={disabled}
+              style={{
+                width: '100%',
+                maxWidth: '250px',
+                padding: '0',
+                marginTop: '0',
+                border: 'none',
+                background: 'transparent',
+                textAlign: 'right',
+                fontSize: 'inherit',
+                fontFamily: 'inherit',
+                color: timesheet.site ? 'inherit' : '#999',
+                cursor: disabled ? 'not-allowed' : 'pointer'
+              }}
+            >
+              <option value="">Select a site</option>
+              {sites.map((site) => (
+                <option key={site} value={site}>
+                  {site}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="input-row">
